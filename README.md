@@ -1,0 +1,1 @@
+Web app for logging learning topics. Built with Django.
