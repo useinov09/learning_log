@@ -1,8 +1,27 @@
 {% extends "learning_logs/base.html" %}
 
 {% block content %}
-<p>
-    Learning Log helps you keep track of your learning, for any topic you're
-    learning about.
-</p>
+<div class="p-3 p-md-5 mb-4 rounded-3" style="background-color: #e3f2fd;">
+    <h1 class="display-3 d-none d-md-block">Track your learning.</h1>
+    <h1 class="display-6 d-md-none">Track your learning.</h1>
+    <p class="lead d-none d-md-block">
+        Make your own Learning Log, and keep a list of the
+        topic's you're learning about. Whenever you learn something new
+        about a topic, make an entry summarizing what you've learned.
+    </p>
+    <p class="fs-6 d-md-none">
+        Make your own Learning Log, and keep a list of the
+        topic's you're learning about. Whenever you learn something new
+        about a topic, make an entry summarizing what you've learned.
+    </p>
+    <a class="btn btn-primary btn-lg d-none d-md-inline-block"
+       href="{% url 'learning_logs:topics' %}" role="button">
+        Topics &raquo;
+    </a>
+    <a class="btn btn-primary d-md-none"
+       href="{% url 'learning_logs:topics' %}" role="button">
+        Topics &raquo;
+    </a>
+
+</div>
 {% endblock content %}
