@@ -6,21 +6,26 @@
 
 {% block content %}
 <p>
-    <a href="{% url 'learning_logs:new_entry' topic.id %}">add new entry:</a>
+    <a class="btn btn-primary" href="{% url 'learning_logs:new_entry' topic.id %}">
+        <i class="bi bi-plus-lg"></i>
+        add new entry
+    </a>
 </p>
 
 {% for entry in entries %}
     <div class="card mb-3">
         <h4 class="card-header d-flex align-items-center" style="background-color: #e3f2fd">
             {{ entry.date_added|date:'M d, Y H:i' }}
-            <a class="btn ms-auto rounded-pill d-none d-md-block"
+            <a class="btn btn-edit ms-auto rounded-pill d-none d-md-block"
                style="color:#769fcd; border: 1px solid #769fcd; padding: 4px 8px; border-radius: 4px;"
                href="{% url 'learning_logs:edit_entry' entry.id %}">
+                <i class="bi bi-pencil pe-1"></i>
                 Edit entry
             </a>
-            <a class="btn btn-ms ms-auto rounded-pill d-md-none"
+            <a class="btn btn-edit btn-ms ms-auto rounded-pill d-md-none"
                style="color:#769fcd; border: 1px solid #769fcd; padding: 4px 8px; border-radius: 4px; font-size: 12px;"
                href="{% url 'learning_logs:edit_entry' entry.id %}">
+                <i class="bi bi-pencil pe-1"></i>
                 Edit entry
             </a>
         </h4>
