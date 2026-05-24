@@ -6,18 +6,24 @@
 {% endblock page_header %}
 
 {% block content %}
-<ul>
-    {% for topic in topics %}
-        <li>
-            <h3><a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a></h3>
-        </li>
-    {% empty %}
-        <li>
-            <h3>No topics have been added yet.</h3>
-        </li>
-    {% endfor %}
-</ul>
+<p>
+    <a class="btn btn-primary mb-1" style="color: white" href="{% url 'learning_logs:new_topic' %}">
+        <i class="bi bi-folder-plus me-1"></i>
+        add a new topic
+    </a>
+</p>
 
-<h3><a href="{% url 'learning_logs:new_topic' %}">Add a new topic:</a></h3>
+{% for topic in topics %}
+    <a class="border border-3 p-2 my-2 rounded d-flex align-items-center text-decoration-none topic-item"
+       style="color: #0d6efd"
+       href="{% url 'learning_logs:topic' topic.id %}">
+        <i class="bi bi-folder pe-2"></i>
+        {{ topic|truncatechars:50 }}
+        <i class="bi bi-caret-right-fill ms-auto"></i>
+    </a>
+{% empty %}
+    <p>No topics have been added yet.</p>
+{% endfor %}
+
 
 {% endblock content %}
