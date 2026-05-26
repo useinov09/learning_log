@@ -5,12 +5,22 @@
 {% endblock page_header %}
 
 {% block content %}
-<p>
-    <a class="btn btn-primary" href="{% url 'learning_logs:new_entry' topic.id %}">
-        <i class="bi bi-plus-lg"></i>
-        add new entry
-    </a>
-</p>
+
+<div class="d-flex justify-content-between">
+    <p>
+        <a class="btn btn-primary mb-1" style="color: white" href="{% url 'learning_logs:topics' %}">
+            <i class="bi bi-arrow-left"></i>
+            Topics
+        </a>
+    </p>
+    <p class="">
+        <a class="btn btn-primary" href="{% url 'learning_logs:new_entry' topic.id %}">
+            <i class="bi bi-plus-lg"></i>
+            add new entry
+        </a>
+    </p>
+</div>
+
 
 {% for entry in entries %}
     <div class="card mb-3">

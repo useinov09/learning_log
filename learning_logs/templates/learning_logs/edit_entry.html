@@ -2,13 +2,21 @@
 
 {% block content %}
 
-<p><a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a></p>
+<p>
+    <a class="btn btn-primary" href="{% url 'learning_logs:topic' topic.id %}">
+        <i class="bi bi-arrow-left"></i>
+        {{ topic }}</a>
+</p>
 
 <p>Add a new entry:</p>
 <form action="{% url 'learning_logs:edit_entry' entry.id %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button name="submit">save changes</button>
+    <button class="btn btn-success" name="submit">
+        save changes
+        <i class="bi bi-check-lg"></i>
+    </button>
+
 </form>
 
 {% endblock content%}

@@ -6,6 +6,7 @@
 {% endblock page_header %}
 
 {% block content %}
+
 <p>
     <a class="btn btn-primary mb-1" style="color: white" href="{% url 'learning_logs:new_topic' %}">
         <i class="bi bi-folder-plus me-1"></i>
@@ -24,6 +25,5 @@
 {% empty %}
     <p>No topics have been added yet.</p>
 {% endfor %}
-
 
 {% endblock content %}
