@@ -1,15 +1,16 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from django.contrib.auth.forms import UserCreationForm
+
+from learning_logs.forms import CustomRegisterForm
 
 def register(request):
     """Регистрирует нового пользователя."""
     if request.method != 'POST':
         # Выводит пустую форму регистрации.
-        form = UserCreationForm()
+        form = CustomRegisterForm()
     else:
         # Обработка заполненной формы.
-        form = UserCreationForm(data=request.POST)
+        form = CustomRegisterForm(data=request.POST)
 
         if form.is_valid():
             # Выполнение входа и перенаправление на домашнюю страницу.
