@@ -101,7 +101,7 @@ DATABASES = {
 # На сервере используем PostgreSQL
 if os.environ.get('DATABASE_URL'):
     DATABASES['default'] = dj_database_url.config(
-        coon_max_age=600,
+        conn_max_age=600,
         ssl_require=False,
     )
 
