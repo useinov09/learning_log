@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 
+import os
+import dj_database_url
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,13 +23,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-y3j9e6v2(^!ylq-cssv)2r)hk_m2pnm6vx-o2k1q-rolig9ake'
+SECRET_KEY = os.environ.get('SECRET_KEY', '-6^5pmfmypt1+un-^u@l7^r)^ljunpb&xa!#*ks-&k0yuk%!_t')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
+ALLOWED_HOST = os.environ.get('ALLOWED_HOST')
+if ALLOWED_HOST:
+    ALLOWED_HOSTS.append(ALLOWED_HOST)
 
 # Application definition
 
@@ -49,6 +55,10 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+
+    # библиотека для раздачи статических файлов.
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -80,6 +90,7 @@ WSGI_APPLICATION = 'learning_log.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+# Используем локально
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -87,6 +98,12 @@ DATABASES = {
     }
 }
 
+# На сервере используем PostgreSQL
+if os.environ.get('DATABASE_URL'):
+    DATABASES['default'] = dj_database_url.config(
+        coon_max_age=600,
+        ssl_require=False,
+    )
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
@@ -123,6 +140,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# STATIC_ROOT — папка куда Django соберёт всю статику перед деплоем
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Говорим WhiteNoise сжимать и кэшировать статические файлы
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Мои настройки
 LOGIN_URL = '/users/login/'

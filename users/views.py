@@ -16,7 +16,7 @@ def register(request):
             # Выполнение входа и перенаправление на домашнюю страницу.
             new_user = form.save()
             login(request, new_user)
-            return redirect('learning_logs:index')
+            return redirect('learning_logs:topics')
 
     # Вывести пустую или недействительную форму
     context = {'form': form}
