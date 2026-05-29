@@ -17,7 +17,7 @@
 <form action="{% url 'learning_logs:new_topic' %}" method='post'>
     {% csrf_token %}
     {% bootstrap_form form %}
-    <button class="btn btn-success" name="submit">
+    <button type="submit" class="btn btn-success" name="submit">
         add topic
         <i class="bi bi-check-lg"></i>
     </button>
