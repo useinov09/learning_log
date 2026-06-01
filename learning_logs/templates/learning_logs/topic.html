@@ -39,8 +39,32 @@
                 Edit entry
             </a>
         </h4>
-        <div class="card-body">
+        <div class="card-body pb-0">
             {{ entry.text|linebreaks }}
+        </div>
+        <button class="btn p-0 ms-2 border-0 bg-transparent ms-auto me-4 mb-3"
+                style="color: #0d6efd;"
+                data-bs-toggle="modal"
+                data-bs-target="#deleteTopicModal{{ topic.id }}">
+            <i class="bi bi-trash3 fs-3"></i>
+        </button>
+        <div class="modal fade" id="deleteTopicModal{{ topic.id }}" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content rounded-4">
+                    <div class="modal-body text-center p-4">
+                        <i class="bi bi-trash" style="font-size: 48px; color: #e57373;"></i>
+                        <h5 class="mt-3">Delete "{{ topic }}"?</h5>
+                        <p class="text-muted">All entries will be deleted too.</p>
+                        <div class="d-flex gap-2 justify-content-center mt-3">
+                            <button class="btn btn-outline-primary rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+                            <form method="post" action="{% url 'learning_logs:delete_entry' entry.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger rounded-pill px-4">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% empty %}

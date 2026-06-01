@@ -91,3 +91,24 @@ def edit_entry(request, entry_id):
 
     context = {'entry': entry, 'topic': topic, 'form': form}
     return render(request, 'learning_logs/edit_entry.html', context)
+
+@login_required
+def delete_topic(request, topic_id):
+    topic = get_object_or_404(Topic, id=topic_id)
+    check_topic_owner(request, topic)
+    if request.method == 'POST':
+        topic.delete()
+        return redirect('learning_logs:topics')
+
+    return redirect('learning_logs:topics')
+
+@login_required
+def delete_entry(request, entry_id):
+    entry = get_object_or_404(Entry, id=entry_id)
+    topic = entry.topic
+    check_topic_owner(request, topic)
+    if request.method == 'POST':
+        entry.delete()
+        return redirect('learning_logs:topic', topic_id=topic.id)
+
+    return redirect('learning_logs:topic', topic_id=topic.id)
