@@ -1,7 +1,7 @@
 {% extends "learning_logs/base.html" %}
 
 {% block content %}
-<div class="p-3 p-md-5 mb-4 rounded-3" style="background-color: #e3f2fd;">
+<div class="p-3 p-md-5 rounded-3 mb-4" style="background-color: #e3f2fd;">
     <h1 class="display-3 d-none d-md-block">Track your learning.</h1>
     <h1 class="display-6 d-md-none">Track your learning.</h1>
     <p class="lead d-none d-md-block">
@@ -22,6 +22,19 @@
        href="{% url 'learning_logs:topics' %}" role="button">
         Topics &raquo;
     </a>
+</div>
 
+<div class="d-flex p-3 p-md-5 rounded-3 justify-content-center align-items-center gap-4" style="background-color: #e3f2fd;">
+    <div class="text-center">
+        <div class="display-5 fw-bold">{{ topic_count }}</div>
+        <div class="text-muted">topic{{ topic_count|pluralize }}</div>
+    </div>
+
+    <i class="bi bi-circle-fill" style="font-size: 8px; color: #aaa;"></i>
+
+    <div class="text-center">
+        <div class="display-5 fw-bold">{{ entry_count }}</div>
+        <div class="text-muted">entr{{ entry_count|pluralize:"y,ies" }}</div>
+    </div>
 </div>
 {% endblock content %}

@@ -7,7 +7,14 @@ from .forms import TopicForm, EntryForm
 
 def index(request):
     """Домашняя страница приложения Learning Log"""
-    return render(request, 'learning_logs/index.html')
+    topic_count = 0
+    entry_count = 0
+    if request.user.is_authenticated:
+        topic_count = Topic.objects.filter(owner=request.user).count()
+        entry_count = Entry.objects.filter(topic__owner=request.user).count()
+
+    context = {'topic_count': topic_count, 'entry_count': entry_count}
+    return render(request, 'learning_logs/index.html', context)
 
 def check_topic_owner(request, topic):
     """Проверяем связь пользователя с темой."""
@@ -94,6 +101,7 @@ def edit_entry(request, entry_id):
 
 @login_required
 def delete_topic(request, topic_id):
+    """Удаляем тему"""
     topic = get_object_or_404(Topic, id=topic_id)
     check_topic_owner(request, topic)
     if request.method == 'POST':
@@ -104,6 +112,7 @@ def delete_topic(request, topic_id):
 
 @login_required
 def delete_entry(request, entry_id):
+    """Удаляем описание"""
     entry = get_object_or_404(Entry, id=entry_id)
     topic = entry.topic
     check_topic_owner(request, topic)
