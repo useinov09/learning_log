@@ -121,3 +121,13 @@ def delete_entry(request, entry_id):
         return redirect('learning_logs:topic', topic_id=topic.id)
 
     return redirect('learning_logs:topic', topic_id=topic.id)
+
+@login_required
+def search(request):
+    """Поиск по темам"""
+    q = request.GET.get('q', '')
+    if not q:
+        return redirect('learning_logs:topics')
+    topics = Topic.objects.filter(owner=request.user, text__icontains=q)
+    context = {'topics': topics, 'query': q}
+    return render(request, 'learning_logs/search.html', context)

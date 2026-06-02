@@ -22,4 +22,6 @@ urlpatterns = [
     path('topics/<int:topic_id>/delete/', views.delete_topic, name='delete_topic'),
     # Страница для удаления описания.
     path('entries/<int:entry_id>/delete/', views.delete_entry, name='delete_entry'),
+    # Страница для поиска тем
+    path('search/', views.search, name='search'),
 ]
